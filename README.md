@@ -112,7 +112,6 @@ Install and run Mistral and Llava locally:
 ollama pull mistral
 ollama run mistral
 ollama pull llava
-ollama pull llava-llama3:8b
 ```
 
 The notebook sends cleaned financial data to the LLM using the `ollama` Python client to generate insights.
