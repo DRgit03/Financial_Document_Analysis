@@ -99,13 +99,15 @@ jupyter notebook 3packages_backend_understanding.ipynb
 
 ---
 
-## 🔌 LLM Setup (Ollama)
+## 🔌 LLM Setup (Ollama) and VLM (LLava)
 
 Install and run Mistral locally:
 
 ```bash
 ollama pull mistral
 ollama run mistral
+ollama pull llava
+ollama pull llava-llama3:8b
 ```
 
 > The notebook sends cleaned financial data to the LLM using the `ollama` Python client to get natural language insights.
