@@ -108,7 +108,6 @@ the below packages all comes with ollama which you can install it from requireme
 ollama pull mistral
 ollama run mistral (optional it is just test model response to your prompts)
 ollama pull llava
-ollama pull llava-llama3:8b
 ```
 
 > The notebook sends cleaned financial data to the LLM using the `ollama` Python client to get natural language insights.
