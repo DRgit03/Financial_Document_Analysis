@@ -32,7 +32,7 @@ This project automates the extraction, structuring, validation, and analysis of 
 
 | Notebook | Description |
 |----------|-------------|
-| `financial_statement_validation.ipynb` | Parses and analyzes income statement tables using PyMuPDF, Docling, Pandas, and Mistral |
+| `financial_statement_validation.ipynb` | Parses and analyzes income statement tables using PyMuPDF, Docling, Pandas, and Mistral ,LLava models|
 | `3packages_backend_understanding.ipynb` | Tests and compares tools like `pdfplumber`, `PyMuPDF`, and `docling` on sample finance and scanned PDFs |
 
 ---
@@ -104,8 +104,9 @@ jupyter notebook 3packages_backend_understanding.ipynb
 Install and run Mistral locally:
 
 ```bash
+the below packages all comes with ollama which you can install it from requirements.txt file make sure the ollama installed and later that only run this below commands
 ollama pull mistral
-ollama run mistral
+ollama run mistral (optional it is just test model response to your prompts)
 ollama pull llava
 ollama pull llava-llama3:8b
 ```
