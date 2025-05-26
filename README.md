@@ -145,7 +145,164 @@ Net Income                        3330     3177      5
 - Overall profitability is up; red flags include declining other income.
 - Recommend leadership to monitor revenue pressure while continuing cost controls.
 
+
+
+**title: Income Statement Automation Pipeline**
+
+# Income Statement Automation Pipeline
+
+### End-to-End Overview using LLMs & VLMs
+
 ---
+
+## Objective
+
+**Automate** the extraction and analysis of income statement and invoice data from corporate earnings PDFs.
+
+**Technologies Used:**
+
+* LLMs (Language Models)
+* VLMs (Vision-Language Models)
+* Python Libraries (PyMuPDF, pdf2image, Docling, etc.)
+
+---
+
+## Step 1: Identify Relevant Pages
+
+### 🎯 Goal: Locate Income Statement Pages
+
+* Search for keywords:
+
+  * "income statement"
+  * "net income"
+  * "gross profit"
+* Include pages with ≥2 keyword matches.
+
+**✅ Outcome:** Focuses parsing on financially relevant sections.
+
+---
+
+## Step 2: Filter the PDF
+
+### 🧼 Goal: Create a trimmed-down version
+
+* Use `PdfWriter` to extract only matched pages.
+* Store result in a `temp/` folder.
+
+**✅ Outcome:**
+
+* Faster processing
+* Reduced document size
+
+---
+
+## Step 3: Parse PDF to Markdown
+
+### 📝 Goal: Use Docling for structured output
+
+* Input: Filtered PDF
+* Output: Markdown with headings, paragraphs, and tables
+
+**✅ Outcome:** Enables precise and lightweight parsing of tables.
+
+---
+
+## Step 4: Extract Markdown Tables
+
+### 📊 Goal: Identify tabular financial data
+
+* Use pipe (`|`) and dash (`---`) markers to locate tables.
+* Validate tables have ≥3 rows.
+
+**✅ Outcome:** Only meaningful financial tables are captured.
+
+---
+
+## Step 5: Convert Table to JSON
+
+### 🔄 Goal: Structure tabular data
+
+* Skip header lines
+* Parse remaining rows into a list of dictionaries
+
+**Example:**
+
+```json
+{
+  "Metric": "Net Income",
+  "Q1 2025": "2300",
+  "Q1 2024": "2200",
+  "% Change": "4.5"
+}
+```
+
+**✅ Outcome:** Ready for analysis or dashboarding.
+
+---
+
+## Step 6: Convert to Image (for VLM)
+
+### 🖼️ Goal: Visual Input for VLMs
+
+* Convert filtered PDF to PNG using `pdf2image` and Poppler.
+
+**✅ Outcome:** Image input supports hybrid text + visual reasoning.
+
+---
+
+## Step 7: LLM + VLM Analysis
+
+### 🤖 Goal: Generate insights automatically
+
+* Input:
+
+  * Cleaned DataFrame (from JSON)
+  * Optional: PDF image (for VLMs like `llava`)
+* Prompt guides the model to analyze:
+
+  * Revenue/profit trends
+  * Operational efficiency
+  * Investment or leadership suggestions
+
+**✅ Outcome:** Human-readable insights at scale.
+
+---
+
+## Step 8: Clean Up
+
+### 🧹 Goal: Remove temp files
+
+* Use `shutil.rmtree()` to delete intermediate outputs
+
+**✅ Outcome:** Secure, lightweight, and production-ready pipeline.
+
+---
+
+## Summary: End-to-End Flow
+
+| Step                | Tool/Technique      | Purpose                               |
+| ------------------- | ------------------- | ------------------------------------- |
+| Page Detection      | Keyword Matching    | Focus on income-related content       |
+| PDF Filtering       | PyPDF2 / PdfWriter  | Reduce noise                          |
+| Markdown Conversion | Docling             | Extract structured text               |
+| Table Extraction    | Markdown Heuristics | Isolate financial tables              |
+| JSON Conversion     | Custom Parser       | Structure for analysis                |
+| Image Conversion    | pdf2image + Poppler | Enable VLM visual input               |
+| Financial Insights  | LLM / VLM           | Automated reasoning & recommendations |
+| Cleanup             | shutil              | Keep workspace tidy                   |
+
+---
+
+## Use Cases
+
+### Who benefits from this pipeline?
+
+* 💼 Financial Analysts
+* 📈 Investors
+* 🧪 LLM/VLM Researchers
+* 🧠 AI-Powered Sales Teams
+
+
 
 
 
