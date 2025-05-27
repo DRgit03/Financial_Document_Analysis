@@ -124,7 +124,46 @@ The notebook sends cleaned financial data to the LLM using the `ollama` Python c
 
 Poppler is a PDF rendering library used to convert PDF pages into images. Tools like `pdf2image` require Poppler to enable conversion for vision-language model input.
 
+
+👉 **We *don't* need Poppler for VLMs (Vision-Language Models) like LLaVA, Llava-LLaMA3, or any model that uses images directly.**
+
 ---
+
+### ✅ When Poppler *is needed*
+
+Poppler is typically used for:
+
+* **Rendering PDF pages as images** (`.png`, `.jpg`)
+* **Extracting text from PDFs via `pdftotext`**
+* **Converting complex PDFs where table/text extraction fails**
+
+This is **useful when:**
+
+* You want to **convert a PDF page into an image** so a VLM (like LLaVA) can "see" it.
+* The PDF is **scanned** or visually complex (tables, charts, etc.).
+* You're **working with non-searchable PDFs** where `PyMuPDF`, `pdfplumber`, or `Docling` can’t extract data.
+
+---
+
+### ❌ When Poppler is *not* needed
+
+You **don’t need Poppler** when:
+
+* You're directly feeding an existing `.png` or `.jpg` image into the VLM.
+* Your pipeline uses structured PDFs and VLMs are used only for analysis, not PDF rendering.
+* You're using tools like **Docling**, **PyMuPDF**, or **LLMs** (not VLMs) on raw text or markdown from PDFs.
+
+---
+
+### 💡 Summary
+
+| Use Case                              | Needs Poppler? |
+| ------------------------------------- | -------------- |
+| Extracting tables from scanned PDFs   | ✅ Yes          |
+| Converting PDF page → image for LLaVA | ✅ Yes          |
+| Analyzing a `.png` chart with LLaVA   | ❌ No           |
+| Running Mistral on financial markdown | ❌ No           |
+| Using Docling for PDF text extraction | ❌ No           |
 
 ### 💻 Installation
 
